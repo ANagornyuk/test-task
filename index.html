@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title></title>
+		<meta charset="utf-8">
+	</head>
+	<body>
+		<p>
+			Practical task description:
+			<ul>
+				<li>create a website with FORM to upload files,</li>
+				<li>show list of uploaded files in a table with informative columns,</li>
+				<li>allow to do certain operations with uploaded files: Delete, Download</li>
+			</ul>
+			Extra options:
+			<ul>
+				<li>look and feel of developed result,</li>
+				<li>using git repository (github or bitbucket) during development,</li>
+				<li>upload progress</li>
+			</ul>
+		</p>
+		<form method="POST" action="upload.php" enctype="multipart/form-data" >
+		    <!-- Поле MAX_FILE_SIZE должно быть указано до поля загрузки файла -->
+		    <!--<input type="hidden" name="MAX_FILE_SIZE" value="300000" /> -->
+		    <!-- Название элемента input определяет имя в массиве $_FILES -->
+		    Отправить этот файл: <input name="userfile" type="file" />
+		    <input type="submit" value="Отправить файл" />
+		</form>
+	</body>
+</html>
