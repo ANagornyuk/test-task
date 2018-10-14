@@ -1,5 +1,7 @@
 <?php
 
+require 'mysql.php';
+
 $uploaddir = 'uploads';
 $destination = dirname(__FILE__).DIRECTORY_SEPARATOR.$uploaddir.DIRECTORY_SEPARATOR;
 $uploadfile = $destination.basename($_FILES['userfile']['name']);
@@ -7,18 +9,26 @@ $uploadfile = $destination.basename($_FILES['userfile']['name']);
 //echo '<pre>';
 if (is_uploaded_file($_FILES['userfile']['tmp_name'])){
 	echo "Файл загружен";
-} else {
+	if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
+    	echo "Файл корректен и был успешно загружен.\n";
+    	$sql = 'INSERT INTO file(name, path, type, size, upl_time) VALUES '.
+			"($_FILES['userfile']['name'], $uploadfile, $_FILES['userfile']['type'], $_FILES['userfile']['size'], filectime($_FILES['userfile']['name']))";
+		if ($conn->query($sql) === TRUE) {
+    		echo "New record created successfully".'<br>';
+			} else {
+    		echo "Error: " . $sql . "<br>" . $conn->error . '<br>';
+		}
+	} else {
+    	echo "Возможная атака с помощью файловой загрузки!\n";
+	}
+else {
 	echo "Ошибка загрузки";
 }
-if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
-    echo "Файл корректен и был успешно загружен.\n";
-} else {
-    echo "Возможная атака с помощью файловой загрузки!\n";
 }
 
-echo 'Некоторая отладочная информация:';
-print_r($_FILES);
-print($destination);
+// echo 'Некоторая отладочная информация:';
+// print_r($_FILES);
+// print($destination);
 
 //print "</pre>";
 
