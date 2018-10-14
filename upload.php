@@ -9,22 +9,28 @@ $uploadfile = $destination.basename($_FILES['userfile']['name']);
 //echo '<pre>';
 if (is_uploaded_file($_FILES['userfile']['tmp_name'])){
 	echo "Файл загружен";
+	$upl_time = time();
 	if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadfile)) {
     	echo "Файл корректен и был успешно загружен.\n";
+    	$name = $_FILES['userfile']['name'];
+    	$path = addslashes($uploaddir.DIRECTORY_SEPARATOR.basename($_FILES['userfile']['name']));
+    	$type = $_FILES['userfile']['type'];
+    	$size = $_FILES['userfile']['size'];
+    	//$upl_time = date ("F d Y H:i:s.", filemtime($_FILES['userfile']['name']));
     	$sql = 'INSERT INTO file(name, path, type, size, upl_time) VALUES '.
-			"($_FILES['userfile']['name'], $uploadfile, $_FILES['userfile']['type'], $_FILES['userfile']['size'], filectime($_FILES['userfile']['name']))";
+			"('$name', '$path', '$type', $size, $upl_time)";
 		if ($conn->query($sql) === TRUE) {
     		echo "New record created successfully".'<br>';
-			} else {
+		} else {
     		echo "Error: " . $sql . "<br>" . $conn->error . '<br>';
 		}
 	} else {
     	echo "Возможная атака с помощью файловой загрузки!\n";
 	}
-else {
+} else {
 	echo "Ошибка загрузки";
 }
-}
+
 
 // echo 'Некоторая отладочная информация:';
 // print_r($_FILES);
