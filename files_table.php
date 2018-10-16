@@ -1,7 +1,7 @@
 <?php
 	include 'mysql.php';
 
-	$sql = "SELECT name, path, type, size, upl_time FROM file";
+	$sql = "SELECT  id, name, path, type, size, upl_time FROM file";
 	$result = $conn->query($sql);
 
 	if ($result->num_rows > 0) {
@@ -14,7 +14,11 @@
 	        <td>".strval(intval($row["size"])/1024)."Kb"."</td>
 	        <td>".date("Y-m-d H:i:s", $row["upl_time"])."</td>
 	        <td><a href=".$row["path"]." download>Скачать файл</a></td>
-	        <td></td>
+	        <td><form method="POST" action="delete_file.php">
+		    	<input type="hidden" name="row" value="$row" />
+		    	<input type="submit" value="Удалить" />
+			</form></td>
+	        
 	        </tr>";
 	    }
 	    echo "</table>";
