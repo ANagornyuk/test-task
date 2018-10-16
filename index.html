@@ -19,12 +19,17 @@
 				<li>upload progress</li>
 			</ul>
 		</p>
-		<form method="POST" action="upload.php" enctype="multipart/form-data" >
-		    <!-- Поле MAX_FILE_SIZE должно быть указано до поля загрузки файла -->
-		    <!--<input type="hidden" name="MAX_FILE_SIZE" value="300000" /> -->
-		    <!-- Название элемента input определяет имя в массиве $_FILES -->
-		    Отправить этот файл: <input name="userfile" type="file" />
-		    <input type="submit" value="Отправить файл" />
-		</form>
+		<p>
+			<form method="POST" action="upload.php" enctype="multipart/form-data" >
+			    <!-- Поле MAX_FILE_SIZE должно быть указано до поля загрузки файла -->
+			    <!--<input type="hidden" name="MAX_FILE_SIZE" value="300000" /> -->
+			    <!-- Название элемента input определяет имя в массиве $_FILES -->
+			    Отправить этот файл: <input name="userfile" type="file" />
+			    <input type="submit" value="Отправить файл" />
+			</form>
+		</p>
+		<p>
+			<a href="uploaded_files_list.html.php">список файлов</a>
+		</p>
 	</body>
 </html>
